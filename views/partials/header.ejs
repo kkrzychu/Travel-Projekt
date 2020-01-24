@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<body>
+ 
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="margin-bottom: 20px;">
+        <div class="container">
+            <div>
+                <i class="fa fa-plane navbar-brand" style="font-size: 33px;margin:0px 10px 0px 0px;"></i><a class="navbar-brand" href="/campgrounds"><h4>Travel</h4></a>
+            </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"  style="flex-grow: 0;" id="navbarNavAltMarkup">
+        
+            <div class="navbar-nav float-right" >
+                <% if(!currentUser) { %>
+                    <a class="nav-item nav-link active" href="/login">Zaloguj się <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="/register">Zarejestruj się</a>
+                <% } else { %>
+                    <li class="nav-item nav-link">Zalogowano jako <%= currentUser.username %></li>
+                    <a class="nav-item nav-link" href="/users/<%= currentUser.id %>"><i class="fa fa-user"></i> Profil</a>
+                    <a class="nav-item nav-link" href="/logout">Wyloguj</a>
+                <% } %>
+            </div>
+        
+        </div>
+        </div>
+    </nav>

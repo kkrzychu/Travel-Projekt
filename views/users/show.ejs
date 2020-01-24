@@ -1,0 +1,134 @@
+<%- include("../partials/header")  %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 userBackground">
+                <h1 style="padding: 10px 0;"><%= user.firstName + " " + user.lastName %></h1>
+            <div class="img-thumbnail">
+                <img class="img-thumbnail" src="<%= user.avatar %>" alt="user profile image">
+                <div class="caption-full" style="padding: 10px; text-align: center;">
+                    Email: <a href="mailto:<%= user.email %>"><%= user.email %></a>
+                </div>
+            </div>
+            <p>
+                <%= user.description %>
+            </p>
+            
+        </div>
+        <% if(currentUser && !currentUser.isAdmin) { %>
+            <div class="col-md-8 userBackground">
+                <div class="container ">
+                    <div class="row" style="text-align: center;">
+                        <h4 style="padding: 10px 0;">Rezerwacje </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div>Nazwa</div>
+                        </div>
+                        <div class="col">
+                            <div>Ilość osób</div>
+                        </div>
+                        <div class="col">
+                            <div>Cena</div>
+                        </div>
+                        <div class="col">
+                            <div>Ubezpieczenie</div>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                    <% user.listOfTrips.forEach(function(trips) { %>
+                        <div class="row" style="padding: 10px 0;">
+                            <div class="col">
+                                <%= trips.nazwa %> 
+                            </div>
+                            <div class="col">
+                                <%= trips.ilosc %>  
+                            </div>
+                            <div class="col">
+                                <%= trips.cena %>zł
+                            </div>
+                            <div class="col">
+                                <form class="delete-form" action="/users/<%=user._id%>/<%=trips._id%>?_method=PUT" method="POST">
+                                    <input type="hidden" name="listOfTrips[ubezpieczenie]" value="true">
+                                    <input type="submit" value="Wykup" class="btn btn-sm btn-success ">
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form class="delete-form" action="/users/<%=user._id%>/<%=trips._id%>?_method=DELETE" method="POST">
+                                    <input type="submit" value="Usuń" class="btn btn-sm btn-danger ">
+                                </form>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+         <% } else { %>
+        
+        <% } %>
+        <% if( currentUser && currentUser.isAdmin) { %>
+            <div class="col-md-5 userBackground">
+                <div class="container ">
+                    <div class="row" style="text-align: center;">
+                        <h4 style="padding: 10px 0;">Rezerwacje </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div>Nazwa</div>
+                        </div>
+                        <div class="col">
+                            <div>Ilość osób</div>
+                        </div>
+                        <div class="col">
+                            <div>Cena</div>
+                        </div>
+                        <div class="col">
+                            <div>Ubezpieczenie</div>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                    <% user.listOfTrips.forEach(function(trips) { %>
+                        <div class="row" style="padding: 10px 0;">
+                            <div class="col">
+                                <%= trips.nazwa %> 
+                            </div>
+                            <div class="col">
+                                <%= trips.ilosc %>  
+                            </div>
+                            <div class="col">
+                                <%= trips.cena %>zł
+                            </div>
+                            <div class="col">
+                                <form class="delete-form" action="/users/<%=user._id%>/<%=trips._id%>?_method=PUT" method="POST">
+                                    <input type="hidden" name="listOfTrips[ubezpieczenie]" value="true">
+                                    <input type="submit" value="Wykup" class="btn btn-sm btn-success ">
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form class="delete-form" action="/users/<%=user._id%>/<%=trips._id%>?_method=DELETE" method="POST">
+                                    <input type="submit" value="Usuń" class="btn btn-sm btn-danger ">
+                                </form>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+            <div class="col-md-3 userBackground">
+                <h5 style="padding: 10px 0;">Wycieczki dodane przez <%= user.username %></h5>
+                <ul>
+                <% campgrounds.forEach(function(campground) { %>
+                    <li><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a></li>
+                <% }); %>
+                </ul>
+                
+            </div>
+        <% }  %>
+        
+    </div>
+</div>
+
+
+<%- include("../partials/footer")  %>
